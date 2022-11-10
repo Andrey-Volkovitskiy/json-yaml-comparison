@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+gendiff/__pycache__/
+gendiff/tests/__pycache__/
+gendiff/scripts/__pycache__/
+
+# Distribution / packaging
+dist/
+
+# Unit test / coverage reports
+.pytest_cache/
+.coverage
+
+# Environments
+.env
+.venv/
+
+# VS Code
+.vscode/
