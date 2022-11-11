@@ -15,3 +15,9 @@ lint:
 
 gendiff:
 	poetry run gendiff
+
+test:
+	poetry run pytest -ra -s -vvv
+
+cov:
+	poetry run pytest --cov
