@@ -8,10 +8,12 @@ def main():
         )
     parser.add_argument('first_file')
     parser.add_argument('second_file')
+    parser.add_argument('-f', '--format', help="set format of output")
     args = parser.parse_args()
     print(f'args = {args}')
     print(f'first_file = {args.first_file}')
     print(f'second_file = {args.second_file}')
+    print(f'format = {args.format}')
 
 
 if __name__ == '__main__':
