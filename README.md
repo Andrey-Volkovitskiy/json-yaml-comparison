@@ -1,5 +1,5 @@
 ### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Andrey-Volkovitskiy/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions)   [![linter](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/linter.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/linter.yml)   [![tests](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/tests.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/tests.yml)
+[![Actions Status](https://github.com/Andrey-Volkovitskiy/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions)   [![Lint](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/flake8_linter.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/flake8_linter.yml)   [![Pytest](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/pytest.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/pytest.yml)
 
 ### Asciinema records:
 1. Flat JSON comparison
