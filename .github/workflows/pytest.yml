@@ -35,6 +35,3 @@ jobs:
         uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: bfa1a94e84b898994665946ab9d4387264aad96f11ecd0234d53051b9139058d
-        with:
-          coverageCommand: pytest --cov --cov-report xml
-          debug: true
