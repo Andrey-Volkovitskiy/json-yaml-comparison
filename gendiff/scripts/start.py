@@ -3,7 +3,7 @@ import gendiff
 
 
 def main():
-    gendiff.parse_prompt()
+    gendiff.main()
 
 
 if __name__ == '__main__':
