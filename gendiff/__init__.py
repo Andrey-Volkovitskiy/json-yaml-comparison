@@ -30,12 +30,14 @@ def get_diff_for_key(key, value1, value2):
 
 
 def generate_diff(file_path1, file_path2):
-    config1 = json.load(open(file_path1))
-    config2 = json.load(open(file_path2))
-    common_keys = get_common_keys(config1, config2)
-    result = []
-    for key in sorted(list(common_keys)):
-        value1 = config1.get(key, None)
-        value2 = config2.get(key, None)
-        result.append(get_diff_for_key(key, value1, value2))
-    return '\n'.join(result)
+    with open(file_path1) as f1_manager:
+        with open(file_path2) as f2_manager:
+            config1 = json.load(f1_manager)
+            config2 = json.load(f2_manager)
+            common_keys = get_common_keys(config1, config2)
+            result = []
+            for key in sorted(list(common_keys)):
+                value1 = config1.get(key, None)
+                value2 = config2.get(key, None)
+                result.append(get_diff_for_key(key, value1, value2))
+            return '\n'.join(result)
