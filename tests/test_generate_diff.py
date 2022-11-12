@@ -6,14 +6,16 @@ def test_empty(capsys):
     file_2 = 'tests/fixtures/file2.json'
     gendiff.main((file_0, file_0))
     out, err = capsys.readouterr()
-    assert out == '' + '\n'
+    assert out == '{}' + '\n'
     assert err == ''
 
     gendiff.main((file_0, file_2))
     out, err = capsys.readouterr()
-    assert out == '''+ host: hexlet.io
-+ timeout: 20
-+ verbose: True''' + '\n'
+    assert out == '''{
+  + host: hexlet.io
+  + timeout: 20
+  + verbose: True
+}''' + '\n'
 
 
 def test_flat(capsys):

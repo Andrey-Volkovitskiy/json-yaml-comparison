@@ -1,37 +1,18 @@
 import argparse
 import json
+from gendiff import diff
 
 
-def get_common_keys(dict1, dict2):
-    set1 = set(dict1.keys())
-    set2 = set(dict2.keys())
-    return set1 | set2
+def parse_json(file_manager):
+    return json.load(file_manager)
 
 
-def get_diff_for_key(key, value1, value2):
-    if value1 == value2:
-        return f'  {key}: {value1}'
-    result = []
-    if value1 is not None:
-        result.append(f'- {key}: {value1}')
-    if value2 is not None:
-        result.append(f'+ {key}: {value2}')
-    return '\n'.join(result)
-
-
-def generate_diff(file_path1, file_path2):
-    with open(file_path1) as f1_manager:
-        with open(file_path2) as f2_manager:
-            config1 = json.load(f1_manager)
-            config2 = json.load(f2_manager)
-            common_keys = get_common_keys(config1, config2)
-            result = []
-            for key in sorted(list(common_keys)):
-                value1 = config1.get(key, None)
-                value2 = config2.get(key, None)
-                result.append(get_diff_for_key(key, value1, value2))
-            print('\n'.join(result))
-            return '\n'.join(result)
+def diff_output(difference):
+    if len(difference) != 0:
+        output = '{\n' + '\n'.join(difference) + '\n}'
+    else:
+        output = '{}'
+    print(output)
 
 
 def parse_prompt(test_args):
@@ -41,8 +22,14 @@ def parse_prompt(test_args):
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format', help="set format of output")
     args = parser.parse_args(test_args)
-    generate_diff(args.first_file, args.second_file)
+    return args
 
 
 def main(test_args=None):
-    parse_prompt(test_args)
+    args = parse_prompt(test_args)
+    with open(args.first_file) as f1_manager:
+        with open(args.second_file) as f2_manager:
+            data1 = parse_json(f1_manager)
+            data2 = parse_json(f2_manager)
+    difference = diff.generate_diff(data1, data2)
+    diff_output(difference)

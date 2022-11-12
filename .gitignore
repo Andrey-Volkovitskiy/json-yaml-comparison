@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 gendiff/__pycache__/
-gendiff/tests/__pycache__/
+tests/__pycache__/
 gendiff/scripts/__pycache__/
 
 # Distribution / packaging
