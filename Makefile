@@ -1,3 +1,5 @@
+.PHONY: gendiff
+
 install:
 	poetry install
 

@@ -4,8 +4,7 @@ import json
 
 def parse_prompt():
     parser = argparse.ArgumentParser(
-        description="Compares two configuration files and shows a difference."
-        )
+        description="Compares two configuration files and shows a difference.")
     parser.add_argument('first_file')
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format', help="set format of output")
@@ -19,6 +18,17 @@ def get_common_keys(dict1, dict2):
     return set1 | set2
 
 
+def get_diff_for_key(key, value1, value2):
+    if value1 == value2:
+        return f'  {key}: {value1}'
+    result = []
+    if value1 is not None:
+        result.append(f'- {key}: {value1}')
+    if value2 is not None:
+        result.append(f'+ {key}: {value2}')
+    return '\n'.join(result)
+
+
 def generate_diff(file_path1, file_path2):
     config1 = json.load(open(file_path1))
     config2 = json.load(open(file_path2))
@@ -27,11 +37,5 @@ def generate_diff(file_path1, file_path2):
     for key in sorted(list(common_keys)):
         value1 = config1.get(key, None)
         value2 = config2.get(key, None)
-        if value1 == value2:
-            result.append(f'  {key}: {value1}')
-            continue
-        if value1 is not None:
-            result.append(f'- {key}: {value1}')
-        if value2 is not None:
-            result.append(f'+ {key}: {value2}')
+        result.append(get_diff_for_key(key, value1, value2))
     return '\n'.join(result)
