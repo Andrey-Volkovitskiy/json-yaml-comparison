@@ -1,18 +1,15 @@
 import argparse
 import json
+import yaml
 from gendiff import diff
 
 
-def parse_json(file_manager):
-    return json.load(file_manager)
-
-
-def diff_output(difference):
-    if len(difference) != 0:
-        output = '{\n' + '\n'.join(difference) + '\n}'
-    else:
-        output = '{}'
-    print(output)
+def main(test_args=None):
+    args = parse_prompt(test_args)
+    data1 = parse_file(args.first_file)
+    data2 = parse_file(args.second_file)
+    difference = diff.generate_diff(data1, data2)
+    diff_output(difference)
 
 
 def parse_prompt(test_args):
@@ -25,11 +22,32 @@ def parse_prompt(test_args):
     return args
 
 
-def main(test_args=None):
-    args = parse_prompt(test_args)
-    with open(args.first_file) as f1_manager:
-        with open(args.second_file) as f2_manager:
-            data1 = parse_json(f1_manager)
-            data2 = parse_json(f2_manager)
-    difference = diff.generate_diff(data1, data2)
-    diff_output(difference)
+def parse_file(path_to_file):
+    if path_to_file.endswith('.json'):
+        with open(path_to_file) as content_manager:
+            data = parse_json(content_manager)
+    elif path_to_file.endswith(('.yaml', '.yml')):
+        with open(path_to_file) as content_manager:
+            data = parse_yaml(content_manager)
+    else:
+        raise NameError(f'File "{path_to_file}" have to be .json or .yaml')
+    return data
+
+
+def parse_json(content_manager):
+    return json.load(content_manager)
+
+
+def parse_yaml(content_manager):
+    data = yaml.safe_load(content_manager)
+    if data is None:
+        data = {}
+    return data
+
+
+def diff_output(difference):
+    if len(difference) != 0:
+        output = '{\n' + '\n'.join(difference) + '\n}'
+    else:
+        output = '{}'
+    print(output)

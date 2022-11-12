@@ -7,3 +7,5 @@
 1. Flat JSON comparison
     - Package works with comand line: https://asciinema.org/a/gFNosekyuViKk5rnLD43ta4dk
     - Package works as library: https://asciinema.org/a/sj3WHIVbtESrCKfRGz8h3X9OT
+2. Flat YAML comparison
+    - https://asciinema.org/a/iUt8pHRlNAuDuSLY6y9pxYd8Z
