@@ -37,3 +37,11 @@ def get_new_value(d):
 
 def get_children(d):
     return d['children']
+
+
+def get_all(d):
+    return (get_old_name(d),
+            get_new_name(d),
+            get_old_value(d),
+            get_new_value(d),
+            get_children(d))
