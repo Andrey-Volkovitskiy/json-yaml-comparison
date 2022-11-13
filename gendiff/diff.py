@@ -1,26 +1,39 @@
-def generate_diff(data1, data2):
-    common_keys = get_common_keys(data1, data2)
-    difference = []
-    for key in sorted(list(common_keys)):
-        value1 = data1.get(key, None)
-        value2 = data2.get(key, None)
-        difference.append(get_diff_for_key(key, value1, value2))
-    return difference
+def make(old_name=None, new_name=None,
+         old_value=None, new_value=None,
+         children=None):
+
+    if old_name is None and new_name is None:
+        raise ValueError("New_name and old_name are both None")
+
+    if (old_name != new_name and old_name is not None and new_name is not None):
+        raise ValueError("New_name and old_name isn`t equal")
+
+    if (children is not None and (
+            old_value is not None or new_value is not None)):
+        raise ValueError("Simultaneously value AND cildren exist")
+
+    return {
+        'name': (old_name, new_name),
+        'value': (old_value, new_value),
+        'children': children
+    }
 
 
-def get_common_keys(dict1, dict2):
-    set1 = set(dict1.keys())
-    set2 = set(dict2.keys())
-    return set1 | set2
+def get_old_name(d):
+    return d['name'][0]
 
 
-def get_diff_for_key(key, value1, value2):
-    if value1 == value2:
-        return f'  {key}: {value1}'
-    result = []
-    indent = '  '
-    if value1 is not None:
-        result.append(f'{indent}- {key}: {value1}')
-    if value2 is not None:
-        result.append(f'{indent}+ {key}: {value2}')
-    return '\n'.join(result)
+def get_new_name(d):
+    return d['name'][1]
+
+
+def get_old_value(d):
+    return d['value'][0]
+
+
+def get_new_value(d):
+    return d['value'][1]
+
+
+def get_children(d):
+    return d['children']

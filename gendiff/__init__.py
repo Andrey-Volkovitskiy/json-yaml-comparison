@@ -1,13 +1,13 @@
 import argparse
 from gendiff import parser
-from gendiff import diff
+from gendiff import generator_old
 
 
 def main(test_args=None):
     args = parse_prompt(test_args)
     data1 = parser.parse_file(args.first_file)
     data2 = parser.parse_file(args.second_file)
-    difference = diff.generate_diff(data1, data2)
+    difference = generator_old.generate_diff(data1, data2)
     diff_output(difference)
 
 
