@@ -9,3 +9,5 @@
     - Package works as library: https://asciinema.org/a/sj3WHIVbtESrCKfRGz8h3X9OT
 2. Flat YAML comparison
     - https://asciinema.org/a/iUt8pHRlNAuDuSLY6y9pxYd8Z
+3. Nested comparison
+    - https://asciinema.org/a/M7k20vqdGAN8ektThosXxR7IO
