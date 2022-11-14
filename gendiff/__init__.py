@@ -20,11 +20,3 @@ def parse_prompt(test_args):
     parser.add_argument('-f', '--format', help="set format of output")
     args = parser.parse_args(test_args)
     return args
-
-
-def diff_output(difference):
-    if len(difference) != 0:
-        output = '{\n' + '\n'.join(difference) + '\n}'
-    else:
-        output = '{}'
-    print(output)
