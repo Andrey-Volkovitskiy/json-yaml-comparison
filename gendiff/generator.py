@@ -7,9 +7,18 @@ def generate_diff(data1, data2):
     for key in sorted(list(common_keys)):
         old_name = key if key in data1 else None
         new_name = key if key in data2 else None
-        old_value = data1.get(key, None)
-        new_value = data2.get(key, None)
-        children = None
+
+        val1 = data1.get(key, None)
+        val2 = data2.get(key, None)
+        if isinstance(val1, dict) and isinstance(val2, dict):
+            old_value = None
+            new_value = None
+            children = generate_diff(val1, val2)
+        else:
+            old_value = val1
+            new_value = val2
+            children = None
+
         diff_item = diff.make(old_name, new_name,
                               old_value, new_value,
                               children)
