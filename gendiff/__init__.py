@@ -9,7 +9,7 @@ def main(test_args=None):
     data1 = parser.parse_file(args.first_file)
     data2 = parser.parse_file(args.second_file)
     difference = generator.generate_diff(data1, data2)
-    print(output.output_diff(difference))
+    print(output.output_diff(difference, args.format))
 
 
 def parse_prompt(test_args):

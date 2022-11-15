@@ -4,7 +4,7 @@ FULLINDENT = '    '
 HALFINDENT = '  '
 
 
-def output_diff(difference, depth=0):
+def get_output(difference, depth=0):
     output = '{'
     if len(difference) > 0:
         output += '\n'
@@ -20,7 +20,7 @@ def add_line(diff_item, depth):
 
     if new_name == old_name and new_value is old_value is None:
         return (f'{FULLINDENT * (depth + 1)}{old_name}: '
-                f'{output_diff(children, depth + 1)}')
+                f'{get_output(children, depth + 1)}')
 
     if new_name == old_name and new_value == old_value:
         return f'{FULLINDENT * (depth + 1)}{old_name}: {old_value}'

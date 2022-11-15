@@ -11,3 +11,5 @@
     - https://asciinema.org/a/iUt8pHRlNAuDuSLY6y9pxYd8Z
 3. Nested comparison
     - https://asciinema.org/a/M7k20vqdGAN8ektThosXxR7IO
+4. Plain format output
+    - https://asciinema.org/a/GRHLhIHWRbxuza92L8jEeV5zG
