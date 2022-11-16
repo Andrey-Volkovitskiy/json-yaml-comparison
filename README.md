@@ -41,7 +41,8 @@ Example output (in nested text format):
   - follow: False
   - timeout: 50
   + timeout: {
-        proxy: hexlet
+        host: hexlet
+        proxy: myprox
     }
     + verbose: True
 }
