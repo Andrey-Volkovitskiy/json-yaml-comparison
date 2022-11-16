@@ -6,6 +6,15 @@ HALFINDENT = '  '
 
 
 def get_output(difference, depth=0):
+    '''Outputs a difference tree in stylish text format
+
+    Agruments:
+        difference - tree of differences between two data structures
+        depth - depth of current node in the tree
+
+    Returns:
+        ready to print multiline string
+    '''
     output = '{'
     if len(difference) > 0:
         output += '\n'
@@ -16,6 +25,15 @@ def get_output(difference, depth=0):
 
 
 def add_line(diff_item, depth):
+    '''Creates output for certain node in difference tree
+
+    Agruments:
+        diff_item - certain node in difference tree
+        depth - depth of current node in the tree
+
+    Returns:
+        ready to print string(s)
+    '''
     (old_name, new_name,
         old_value, new_value, children) = diff.get_all(diff_item)
 
@@ -37,12 +55,30 @@ def add_line(diff_item, depth):
 
 
 def add_value(value, depth):
+    '''Creates output for value
+
+    Agruments:
+        value - value of current node
+        depth - depth of current node
+
+    Returns:
+        ready to print string(s)
+    '''
     if not isinstance(value, dict):
         return to_json(value)
     return output_complex_value(value, depth + 1)
 
 
 def output_complex_value(dictionary, depth):
+    '''Creates output for comlex value (for subtree)
+
+    Agruments:
+        dictionary - subtree
+        depth - depth of nodes in this subtree
+
+    Returns:
+        ready to print miltiline string
+    '''
     output = '{'
     if len(dictionary) > 0:
         output += '\n'

@@ -3,6 +3,15 @@ from gendiff.output.change_value_fomat import to_json
 
 
 def get_output(difference, ancestors=None):
+    '''Outputs a difference tree in plain text format
+
+    Agruments:
+        difference - tree of differences between two data structures
+        ancestors - path to current node
+
+    Returns:
+        ready to print multiline string
+    '''
     output = []
     for item in difference:
         (old_name, new_name,
@@ -33,6 +42,14 @@ def get_output(difference, ancestors=None):
 
 
 def modify(value):
+    '''Prepares value for output in correct format
+
+    Agruments:
+        value - property value
+
+    Returns:
+        ready to print string
+    '''
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, str):

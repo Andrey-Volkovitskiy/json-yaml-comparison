@@ -1,7 +1,18 @@
+'''This module responsibel for creation of the tree
+    which describes the difference between two data structures'''
 from gendiff import diff
 
 
 def generate_diff(data1, data2):
+    '''Calculates difference between two data structures
+
+    Agruments:
+        data1 - 1st data structure (extracted from JSON or YAML file)
+        data2 - 2nd data structure (extracted from JSON or YAML file)
+
+    Returns:
+        the tree which describes difference between two data structures
+    '''
     common_keys = get_common_keys(data1, data2)
     difference = []
     for key in sorted(list(common_keys)):

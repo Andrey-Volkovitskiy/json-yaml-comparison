@@ -3,11 +3,27 @@ import json
 
 
 def get_output(difference):
+    '''Outputs a difference tree in JSON format
+
+    Agruments:
+        difference - tree of differences between two data structures
+
+    Returns:
+        ready to print JSON string
+    '''
     prepared_dif = prepare(difference)
     return json.dumps(prepared_dif, sort_keys=False, indent=4)
 
 
 def prepare(difference):
+    '''Converts abstract data to easy readable and transerable form
+
+    Agruments:
+        difference - tree of differences between two data structures
+
+    Returns:
+        formated tree
+    '''
     if not difference:
         return None
     result = []
