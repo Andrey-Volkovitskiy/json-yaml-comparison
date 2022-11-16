@@ -1,4 +1,5 @@
 from gendiff import diff
+from gendiff.output.change_value_fomat import to_json
 
 FULLINDENT = '    '
 HALFINDENT = '  '
@@ -23,7 +24,7 @@ def add_line(diff_item, depth):
                 f'{get_output(children, depth + 1)}')
 
     if new_name == old_name and new_value == old_value:
-        return f'{FULLINDENT * (depth + 1)}{old_name}: {old_value}'
+        return f'{FULLINDENT * (depth + 1)}{old_name}: {to_json(old_value)}'
 
     result = []
     if old_name is not None:
@@ -37,7 +38,7 @@ def add_line(diff_item, depth):
 
 def add_value(value, depth):
     if not isinstance(value, dict):
-        return value
+        return to_json(value)
     return output_complex_value(value, depth + 1)
 
 
@@ -48,7 +49,8 @@ def output_complex_value(dictionary, depth):
     for key in sorted(dictionary.keys()):
         value = dictionary[key]
         if not isinstance(value, dict):
-            output += f'{FULLINDENT * (depth + 1)}{key}: {value}' + '\n'
+            output += (f'{FULLINDENT * (depth + 1)}{key}: '
+                       f'{to_json(value)}' + '\n')
         else:
             output += (f'{FULLINDENT * (depth + 1)}{key}: '
                        f'{output_complex_value(value, depth + 1)}' + '\n')

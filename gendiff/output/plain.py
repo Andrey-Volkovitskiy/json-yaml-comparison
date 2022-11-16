@@ -1,4 +1,5 @@
 from gendiff import diff
+from gendiff.output.change_value_fomat import to_json
 
 
 def get_output(difference, ancestors=None):
@@ -35,6 +36,6 @@ def modify(value):
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, str):
-        return f"'{value}'"
+        return f"'{to_json(value)}'"
     else:
-        return value
+        return to_json(value)
