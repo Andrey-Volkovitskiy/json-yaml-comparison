@@ -27,12 +27,13 @@ This project was built using these tools:
 
 - ***gendiff path/to/file_1 path/to/file_2*** - shows the difference in nested text format
 - ***gendiff --format plain path/to/file_1 path/to/file_2*** - shows the difference in plain text format
-- ***gendiff --format json path/to/file_1 path/to/file_2**  * - shows the difference in JSON format
+- ***gendiff --format json path/to/file_1 path/to/file_2*** - shows the difference in JSON format
 
 Example output (in plain text format):
 ```   Property 'follow' was removed
    Property 'timeout' was updated. From 50 to [complex value]
-   Property 'verbose' was added with value: True```
+   Property 'verbose' was added with value: True
+```
 
 Example output (in nested text format):
 ``` {
@@ -42,7 +43,8 @@ Example output (in nested text format):
             proxy: hexlet
        }
      + verbose: True
-   }```
+   }
+```
 
 
 ---
