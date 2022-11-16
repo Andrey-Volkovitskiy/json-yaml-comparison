@@ -15,11 +15,11 @@ This project was built using these tools:
 
 | Tool                                                                        | Description                                             |
 |-----------------------------------------------------------------------------|---------------------------------------------------------|
-| [poetry](https://poetry.eustace.io/)                                        | Python dependency management and packaging  |
-| [pytest](https://docs.pytest.org/)               | Python testing framework |
-| [flake8](https://flake8.pycqa.org/)               | Linter to check the style of the code |
-| [code climate](https://codeclimate.com/)               | Checks code quality standards on every commit |
-| [github actions](https://github.com/features/actions)               | Continuous Integration (CI) |
+| [Poetry](https://poetry.eustace.io/)                                        | Python dependency management and packaging  |
+| [Pytest](https://docs.pytest.org/)               | Python testing framework |
+| [Flake8](https://flake8.pycqa.org/)               | Linter to check the style of the code |
+| [Code Climate](https://codeclimate.com/)               | Checks code quality standards on every commit |
+| [Github Actions](https://github.com/features/actions)               | Continuous Integration (CI) |
 
 
 ---
@@ -36,14 +36,15 @@ Example output (in plain text format):
 ```
 
 Example output (in nested text format):
-``` {
-     - follow: False
-     - timeout: 50
-     + timeout: {
-            proxy: hexlet
-       }
-     + verbose: True
-   }
+```
+{
+  - follow: False
+  - timeout: 50
+  + timeout: {
+        proxy: hexlet
+    }
+    + verbose: True
+}
 ```
 
 
