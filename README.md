@@ -13,3 +13,5 @@
     - https://asciinema.org/a/M7k20vqdGAN8ektThosXxR7IO
 4. Plain format output
     - https://asciinema.org/a/GRHLhIHWRbxuza92L8jEeV5zG
+5. JSON format output
+    - https://asciinema.org/a/GYaAQCpdHOe54RdVckXmYfPsE
