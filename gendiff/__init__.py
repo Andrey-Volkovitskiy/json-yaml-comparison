@@ -6,10 +6,15 @@ from gendiff import output
 
 def main(test_args=None):
     args = parse_prompt(test_args)
-    data1 = parser.parse_file(args.first_file)
-    data2 = parser.parse_file(args.second_file)
+    result = generate_diff(args.first_file, args.second_file, args.format)
+    print(result)
+
+
+def generate_diff(file_path1, file_path2, format_name='stylish'):
+    data1 = parser.parse_file(file_path1)
+    data2 = parser.parse_file(file_path2)
     difference = generator.generate_diff(data1, data2)
-    print(output.output_diff(difference, args.format))
+    return output.output_diff(difference, format_name)
 
 
 def parse_prompt(test_args):
