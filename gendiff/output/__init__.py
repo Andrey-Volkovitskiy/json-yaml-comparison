@@ -10,7 +10,7 @@ def output_diff(difference, format):
         format - one of three formats (stylish, plain, json)
 
     Returns:
-        extracted data structure
+        ready to print multiline string
     '''
     if format == 'stylish' or format is None:
         return stylish.get_output(difference)
@@ -19,4 +19,4 @@ def output_diff(difference, format):
     elif format == 'json':
         return json_diff.get_output(difference)
     else:
-        raise SyntaxError(f'Wrong format key "{format}"!')
+        raise ValueError(f'Wrong format key "{format}"!')

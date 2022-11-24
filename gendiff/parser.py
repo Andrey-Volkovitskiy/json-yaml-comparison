@@ -13,24 +13,24 @@ def parse_file(path_to_file):
         extracted data structure
     '''
     if path_to_file.endswith('.json'):
-        with open(path_to_file) as content_manager:
-            data = parse_json(content_manager)
+        with open(path_to_file) as the_file:
+            data = parse_json(the_file)
     elif path_to_file.endswith(('.yaml', '.yml')):
-        with open(path_to_file) as content_manager:
-            data = parse_yaml(content_manager)
+        with open(path_to_file) as the_file:
+            data = parse_yaml(the_file)
     else:
         raise NameError(f'File "{path_to_file}" have to be .json or .yaml')
     return data
 
 
-def parse_json(content_manager):
+def parse_json(the_file):
     '''Parse JSON content'''
-    return json.load(content_manager)
+    return json.load(the_file)
 
 
-def parse_yaml(content_manager):
+def parse_yaml(the_file):
     '''Parse YAML content'''
-    data = yaml.safe_load(content_manager)
+    data = yaml.safe_load(the_file)
     if data is None:
         data = {}
     return data

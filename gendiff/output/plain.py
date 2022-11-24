@@ -1,5 +1,5 @@
 from gendiff import diff
-from gendiff.output.change_value_fomat import to_json
+from gendiff.output.serializing import to_json_str
 
 
 def get_output(difference, ancestors=None):
@@ -23,8 +23,8 @@ def get_output(difference, ancestors=None):
             output.append(get_output(children, current_path))
             continue
 
-        old_mod_value = modify(old_value)
-        new_mod_value = modify(new_value)
+        old_str_value = val_to_str(old_value)
+        new_str_value = val_to_str(new_value)
 
         if old_name is not None and new_name is None:
             output.append(f"Property '{current_path}' was removed")
@@ -32,16 +32,16 @@ def get_output(difference, ancestors=None):
 
         elif new_name is not None and old_name is None:
             output.append(f"Property '{current_path}' was added "
-                          f"with value: {new_mod_value}")
+                          f"with value: {new_str_value}")
 
         elif old_value != new_value:
             output.append(f"Property '{current_path}' was updated. "
-                          f"From {old_mod_value} to {new_mod_value}")
+                          f"From {old_str_value} to {new_str_value}")
 
     return '\n'.join(output)
 
 
-def modify(value):
+def val_to_str(value):
     '''Prepares value for output in correct format
 
     Agruments:
@@ -53,6 +53,6 @@ def modify(value):
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, str):
-        return f"'{to_json(value)}'"
+        return f"'{to_json_str(value)}'"
     else:
-        return to_json(value)
+        return to_json_str(value)

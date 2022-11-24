@@ -22,7 +22,7 @@ def make(old_name=None, new_name=None,
         raise ValueError("New_name and old_name are both None")
 
     if (old_name != new_name and old_name is not None and new_name is not None):
-        raise ValueError("New_name and old_name isn`t equal")
+        raise ValueError("New_name and old_name aren`t equal")
 
     if (children is not None and (
             old_value is not None or new_value is not None)):

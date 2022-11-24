@@ -1,8 +1,9 @@
 import json
 
 
-def to_json(value):
-    '''Prepares internal Python data for output according to JSON:
+def to_json_str(value):
+    '''Prepares internal Python data for output according to JSON
+
     None -> null
     True, False -> true, false
     str -> str (remains unchanged)
