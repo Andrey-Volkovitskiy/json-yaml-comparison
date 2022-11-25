@@ -1,4 +1,4 @@
-import gendiff
+from gendiff import generate_diff
 
 
 def test_plain(capsys):
@@ -8,7 +8,5 @@ def test_plain(capsys):
     with open('tests/fixtures/result_plain_format.txt', 'r') as context_man:
         desired_result = context_man.read()
 
-    gendiff.main([file_a + '.json', file_b + '.json', '--format', 'plain'])
-    out, err = capsys.readouterr()
-    assert out == desired_result + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.json', file_b + '.json', 'plain')
+    assert result == desired_result

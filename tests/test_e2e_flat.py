@@ -1,36 +1,28 @@
-import gendiff
+from gendiff import generate_diff
 
 
-def test_empty(capsys):
+def test_empty():
     file_a = 'tests/fixtures/file0'
 
-    gendiff.main(((file_a + '.json'), (file_a + '.json')))
-    out, err = capsys.readouterr()
-    assert out == '{}' + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.json', file_a + '.json')
+    assert result == '{}'
 
-    gendiff.main(((file_a + '.yml'), (file_a + '.yaml')))
-    out, err = capsys.readouterr()
-    assert out == '{}' + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.yml', file_a + '.yaml')
+    assert result == '{}'
 
 
-def test_half_empty(capsys):
+def test_half_empty():
     file_a = 'tests/fixtures/file0'
     file_b = 'tests/fixtures/file2'
 
     with open('tests/fixtures/result_half_empty.txt', 'r') as context_man:
         desired_result = context_man.read()
 
-    gendiff.main(((file_a + '.json'), (file_b + '.json')))
-    out, err = capsys.readouterr()
-    assert out == desired_result + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.json', file_b + '.json')
+    assert result == desired_result
 
-    gendiff.main(((file_a + '.yaml'), (file_b + '.yaml')))
-    out, err = capsys.readouterr()
-    assert out == desired_result + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.yaml', file_b + '.yaml')
+    assert result == desired_result
 
 
 def test_flat(capsys):
@@ -40,17 +32,11 @@ def test_flat(capsys):
     with open('tests/fixtures/result_flat.txt', 'r') as context_man:
         desired_result = context_man.read()
 
-    gendiff.main(((file_a + '.json'), (file_b + '.json')))
-    out, err = capsys.readouterr()
-    assert out == desired_result + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.json', file_b + '.json')
+    assert result == desired_result
 
-    gendiff.main(((file_a + '.yaml'), (file_b + '.yaml')))
-    out, err = capsys.readouterr()
-    assert out == desired_result + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.yaml', file_b + '.yaml')
+    assert result == desired_result
 
-    gendiff.main(((file_a + '.json'), (file_b + '.yaml')))
-    out, err = capsys.readouterr()
-    assert out == desired_result + '\n'
-    assert err == ''
+    result = generate_diff(file_a + '.json', file_b + '.yaml')
+    assert result == desired_result
