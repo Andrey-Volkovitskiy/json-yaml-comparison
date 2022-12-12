@@ -67,3 +67,17 @@ def get_all(d):
             get_old_value(d),
             get_new_value(d),
             get_children(d))
+
+
+def get_node_type(d):
+    '''Gets type of the node'''
+    if get_old_name(d) == get_new_name(d) and (
+       get_old_value(d) == get_new_value(d)):
+
+        if get_old_value(d) is None:
+            return "Node had and still has children"
+        else:
+            return "Node hasn't been changed"
+
+    else:
+        return "Node value has been changed"

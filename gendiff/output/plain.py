@@ -19,7 +19,7 @@ def get_output(difference, ancestors=None):
 
         current_path = '.'.join(filter(None, [ancestors, old_name or new_name]))
 
-        if new_name == old_name and new_value is old_value is None:
+        if diff.get_node_type(item) == "Node had and still has children":
             output.append(get_output(children, current_path))
             continue
 
