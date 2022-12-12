@@ -1,5 +1,5 @@
 from gendiff import diff
-from gendiff.output.serializing import to_json_str
+from gendiff.output.serializing import to_json_style
 
 
 def get_output(difference, ancestors=None):
@@ -53,6 +53,6 @@ def val_to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, str):
-        return f"'{to_json_str(value)}'"
+        return f"'{to_json_style(value)}'"
     else:
-        return to_json_str(value)
+        return to_json_style(value)
