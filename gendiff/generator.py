@@ -7,14 +7,15 @@ def generate_diff(data1, data2):
     '''Calculates difference between two data structures
 
     Agruments:
-        data1 - 1st dict parsed from JSON/YAML file
-        data2 - 2nd dict parsed from JSON/YAML file
+        data1 - dict parsed from 1st JSON/YAML file
+        data2 - dict parsed from 2nd JSON/YAML file
 
     Returns:
         the tree which describes difference between two data structures
     '''
     all_keys = get_all_keys(data1, data2)
     difference = []
+
     for key in sorted(list(all_keys)):
         old_name = key if key in data1 else None
         new_name = key if key in data2 else None
@@ -22,7 +23,7 @@ def generate_diff(data1, data2):
         val1 = data1.get(key)
         val2 = data2.get(key)
 
-        if type(val1) == type(val2) == dict:  # Both nodes HAS_CHILDREN
+        if type(val1) == type(val2) == dict:  # Both nodes HAVE_CHILDREN
             old_value = None
             new_value = None
             children = generate_diff(val1, val2)

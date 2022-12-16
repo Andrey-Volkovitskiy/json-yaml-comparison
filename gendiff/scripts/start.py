@@ -8,27 +8,24 @@ def parse_prompt():
 
     Agruments:
         file_path1 - first file to compare
-        file_path1 - second file to compare
+        file_path2 - second file to compare
         [format_name] - optional format of output
 
     Returns:
-        tuple with three arguments given by the user
+        arguments given by the user
     '''
     parser = argparse.ArgumentParser(
         description="Compares two configuration files and shows a difference.")
     parser.add_argument('first_file')
     parser.add_argument('second_file')
-    parser.add_argument('-f', '--format', help="set format of output")
+    parser.add_argument('-f', '--format',
+                        help="set format of output (stylish, plain, json)")
     args = parser.parse_args()
     return args
 
 
 def main():
     '''Prints difference between two JSON or YAML files
-
-    Agruments:
-        test_args - gets (path_to_file1, path_to_file2, opional_format_key) from
-            Pytest tests or input from user
 
     Returns:
         prints the difference between file1 and file2 using one of three formats

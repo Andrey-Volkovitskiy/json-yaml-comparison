@@ -34,8 +34,8 @@ def get_node_type(d):
 def make(old_name=None, new_name=None,
          old_value=None, new_value=None,
          children=None):
-    '''Creates tree node describing difference between old and new property
-            in cofig file
+    '''Creates tree node describing difference between the property
+            mentioned in old and new cofig file
 
     Agruments:
         old_name - old property name
@@ -51,11 +51,11 @@ def make(old_name=None, new_name=None,
     if old_name is None and new_name is None:
         raise ValueError("New_name and old_name are both None")
 
-    if (old_name != new_name and old_name is not None and new_name is not None):
+    if old_name != new_name and old_name is not None and new_name is not None:
         raise ValueError("New_name and old_name aren`t equal")
 
-    if (children is not None and (
-            old_value is not None or new_value is not None)):
+    if children is not None and \
+            (old_value is not None or new_value is not None):
         raise ValueError("Simultaneously value AND cildren exist")
 
     return {

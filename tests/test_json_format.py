@@ -2,11 +2,12 @@ from gendiff import generate_diff
 
 
 def test_json(capsys):
-    file_a = 'tests/fixtures/file5'
-    file_b = 'tests/fixtures/file6'
+    before = 'tests/fixtures/file5'
+    after = 'tests/fixtures/file6'
 
-    with open('tests/fixtures/result_json_format.json', 'r') as context_man:
-        desired_result = context_man.read()
+    with open('tests/fixtures/result_json_format.json', 'r') as result_file:
+        desired_result = result_file.read()
 
-    result = generate_diff(file_a + '.json', file_b + '.json', 'json')
+    result = generate_diff(before + '.json', after + '.json',
+                           format_name='json')
     assert result == desired_result

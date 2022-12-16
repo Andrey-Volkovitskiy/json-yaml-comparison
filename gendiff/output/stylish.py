@@ -49,6 +49,7 @@ def add_line(node, depth):
     if node_type == diff.REMOVED or node_type == diff.UPDATED:
         result.append(f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
                       f"{add_value(node['old_value'], depth)}")
+
     if node_type == diff.ADDED or node_type == diff.UPDATED:
         result.append(f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
                       f"{add_value(node['new_value'], depth)}")
@@ -78,7 +79,7 @@ def output_complex_value(dictionary, depth):
         depth - depth of nodes in this subtree
 
     Returns:
-        ready to print miltiline string
+        ready to print multiline string
     '''
     output = '{'
     if len(dictionary) > 0:

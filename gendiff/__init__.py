@@ -8,7 +8,7 @@ def generate_diff(file_path1, file_path2, format_name='stylish'):
 
     Agruments:
         file_path1 - first file to compare
-        file_path1 - second file to compare
+        file_path2 - second file to compare
         format_name - format of output (stylish [default], plain, json)
 
     Returns:

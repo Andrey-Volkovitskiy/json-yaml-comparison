@@ -24,27 +24,27 @@ def test_nested():
     d1 = diff.make('a', 'a', 1, 2, None)
     d2 = diff.make('b', 'b', None, None, [d1])
     d3 = diff.make('c', 'c', None, None, [d1, d2])
-    r1, r2 = d3['children']
-    assert r1['old_name'] == 'a'
-    assert r2['new_name'] == 'b'
-    assert r1['old_value'] == 1
-    assert r2['new_value'] is None
-    assert r1['children'] is None
-    assert r2['children'] == [d1]
+    child1, child2 = d3['children']
+    assert child1['old_name'] == 'a'
+    assert child2['new_name'] == 'b'
+    assert child1['old_value'] == 1
+    assert child2['new_value'] is None
+    assert child1['children'] is None
+    assert child2['children'] == [d1]
 
 
 def test_invariants():
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         diff.make(None, None, 1, 2, None)  # No key
 
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         diff.make('a', 'b', 1, 1, None)  # Key changed
 
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         diff.make('a', 'a', 1, 2, ['b', 'c'])  # Value AND cildren exist
 
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         diff.make('a', 'a', 1, None, ['b', 'c'])  # Value AND cildren exist
 
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         diff.make('a', 'a', None, 2, ['b', 'c'])  # Value AND cildren exist
