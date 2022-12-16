@@ -13,28 +13,26 @@ def get_output(difference, ancestors=None):
         ready to print multiline string
     '''
     output = []
-    for item in difference:
-        (old_name, new_name,
-         old_value, new_value, children) = diff.get_all(item)
+    for node in difference:
+        node_type = diff.get_node_type(node)
+        current_path = '.'.join(
+            filter(None, [ancestors, node["old_name"] or node["new_name"]])
+        )
 
-        current_path = '.'.join(filter(None, [ancestors, old_name or new_name]))
+        old_str_value = val_to_str(node["old_value"])
+        new_str_value = val_to_str(node["new_value"])
 
-        if diff.get_node_type(item) == "Node had and still has children":
-            output.append(get_output(children, current_path))
-            continue
+        if node_type == diff.BOTH_HAVE_CHILDREN:
+            output.append(get_output(node["children"], current_path))
 
-        old_str_value = val_to_str(old_value)
-        new_str_value = val_to_str(new_value)
-
-        if old_name is not None and new_name is None:
+        elif node_type == diff.REMOVED:
             output.append(f"Property '{current_path}' was removed")
-            continue
 
-        elif new_name is not None and old_name is None:
+        elif node_type == diff.ADDED:
             output.append(f"Property '{current_path}' was added "
                           f"with value: {new_str_value}")
 
-        elif old_value != new_value:
+        elif node_type == diff.UPDATED:
             output.append(f"Property '{current_path}' was updated. "
                           f"From {old_str_value} to {new_str_value}")
 

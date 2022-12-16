@@ -19,20 +19,25 @@ def generate_diff(data1, data2):
         old_name = key if key in data1 else None
         new_name = key if key in data2 else None
 
-        val1 = data1.get(key, None)
-        val2 = data2.get(key, None)
-        if isinstance(val1, dict) and isinstance(val2, dict):
+        val1 = data1.get(key)
+        val2 = data2.get(key)
+
+        if type(val1) == type(val2) == dict:  # Both nodes HAS_CHILDREN
             old_value = None
             new_value = None
             children = generate_diff(val1, val2)
-        else:
+        else:                     # At least one node hasn't children
             old_value = val1
             new_value = val2
             children = None
 
-        diff_item = diff.make(old_name, new_name,
-                              old_value, new_value,
-                              children)
+        diff_item = diff.make(
+            old_name,
+            new_name,
+            old_value,
+            new_value,
+            children
+        )
         difference.append(diff_item)
     return difference
 

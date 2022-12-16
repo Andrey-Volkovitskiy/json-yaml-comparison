@@ -1,5 +1,35 @@
 '''The module with data abstraction'''
 
+ADDED = "added"
+UNCHANGED = "unchanged"
+REMOVED = "removed"
+UPDATED = "updated"
+BOTH_HAVE_CHILDREN = "both_has_children"
+
+
+def get_node_type(d):
+    '''Gets type of the node'''
+    if d["old_name"] is None and d["old_value"] is None and \
+            d["new_value"] is not None and d["new_name"] is not None:
+        return ADDED
+
+    elif d["old_name"] == d["new_name"] and \
+            d["old_value"] == d["new_value"] is not None:
+        return UNCHANGED
+
+    elif d["old_value"] is not None and d["old_name"] is not None and \
+            d["new_name"] is None and d["new_value"] is None:
+        return REMOVED
+
+    elif d["old_name"] == d["new_name"] and d["old_value"] != d["new_value"]:
+        return UPDATED
+
+    elif d["children"]:
+        return BOTH_HAVE_CHILDREN
+
+    else:
+        raise ValueError(f"Unable to determine type of {d}")
+
 
 def make(old_name=None, new_name=None,
          old_value=None, new_value=None,
@@ -29,55 +59,9 @@ def make(old_name=None, new_name=None,
         raise ValueError("Simultaneously value AND cildren exist")
 
     return {
-        'name': (old_name, new_name),
-        'value': (old_value, new_value),
+        'old_name': old_name,
+        'new_name': new_name,
+        'old_value': old_value,
+        'new_value': new_value,
         'children': children
     }
-
-
-def get_old_name(d):
-    '''Gets old property name'''
-    return d['name'][0]
-
-
-def get_new_name(d):
-    '''Gets new property name'''
-    return d['name'][1]
-
-
-def get_old_value(d):
-    '''Gets old property value'''
-    return d['value'][0]
-
-
-def get_new_value(d):
-    '''Gets new property value'''
-    return d['value'][1]
-
-
-def get_children(d):
-    '''Gets list of property`s children (list of subnodes)'''
-    return d['children']
-
-
-def get_all(d):
-    '''Gets tuple with all property attributes'''
-    return (get_old_name(d),
-            get_new_name(d),
-            get_old_value(d),
-            get_new_value(d),
-            get_children(d))
-
-
-def get_node_type(d):
-    '''Gets type of the node'''
-    if get_old_name(d) == get_new_name(d) and (
-       get_old_value(d) == get_new_value(d)):
-
-        if get_old_value(d) is None:
-            return "Node had and still has children"
-        else:
-            return "Node hasn't been changed"
-
-    else:
-        return "Node value has been changed"

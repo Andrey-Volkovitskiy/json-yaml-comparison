@@ -3,34 +3,34 @@ import pytest
 
 
 def test_positional_args():
-    d1 = diff.make('a', 'a', 1, 2, None)
-    assert diff.get_old_name(d1) == 'a'
-    assert diff.get_new_name(d1) == 'a'
-    assert diff.get_old_value(d1) == 1
-    assert diff.get_new_value(d1) == 2
-    assert diff.get_children(d1) is None
+    d = diff.make('a', 'a', 1, 2, None)
+    assert d['old_name'] == 'a'
+    assert d['new_name'] == 'a'
+    assert d['old_value'] == 1
+    assert d['new_value'] == 2
+    assert d['children'] is None
 
 
 def test_keyword_args():
-    d1 = diff.make(new_name='b', new_value=2)
-    assert diff.get_old_name(d1) is None
-    assert diff.get_new_name(d1) == 'b'
-    assert diff.get_old_value(d1) is None
-    assert diff.get_new_value(d1) == 2
-    assert diff.get_children(d1) is None
+    d = diff.make(new_name='b', new_value=2)
+    assert d['old_name'] is None
+    assert d['new_name'] == 'b'
+    assert d['old_value'] is None
+    assert d['new_value'] == 2
+    assert d['children'] is None
 
 
 def test_nested():
     d1 = diff.make('a', 'a', 1, 2, None)
     d2 = diff.make('b', 'b', None, None, [d1])
     d3 = diff.make('c', 'c', None, None, [d1, d2])
-    r1, r2 = diff.get_children(d3)
-    assert diff.get_old_name(r1) == 'a'
-    assert diff.get_new_name(r2) == 'b'
-    assert diff.get_old_value(r1) == 1
-    assert diff.get_new_value(r2) is None
-    assert diff.get_children(r1) is None
-    assert diff.get_children(r2) == [d1]
+    r1, r2 = d3['children']
+    assert r1['old_name'] == 'a'
+    assert r2['new_name'] == 'b'
+    assert r1['old_value'] == 1
+    assert r2['new_value'] is None
+    assert r1['children'] is None
+    assert r2['children'] == [d1]
 
 
 def test_invariants():
