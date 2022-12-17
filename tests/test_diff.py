@@ -34,17 +34,22 @@ def test_nested():
 
 
 def test_invariants():
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as err:
         diff.make(None, None, 1, 2, None)  # No key
+    assert str(err.value) == "New_name and old_name are both None"
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as err:
         diff.make('a', 'b', 1, 1, None)  # Key changed
+    assert str(err.value) == "New_name and old_name aren`t equal"
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as err:
         diff.make('a', 'a', 1, 2, ['b', 'c'])  # Value AND cildren exist
+    assert str(err.value) == "Simultaneously value AND cildren exist"
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as err:
         diff.make('a', 'a', 1, None, ['b', 'c'])  # Value AND cildren exist
+    assert str(err.value) == "Simultaneously value AND cildren exist"
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as err:
         diff.make('a', 'a', None, 2, ['b', 'c'])  # Value AND cildren exist
+    assert str(err.value) == "Simultaneously value AND cildren exist"
