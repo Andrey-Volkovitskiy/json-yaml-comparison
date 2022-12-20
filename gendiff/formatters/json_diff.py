@@ -1,7 +1,7 @@
 import json
 
 
-def get_output(difference):
+def format(difference):
     '''Outputs a difference tree in JSON format
 
     Agruments:

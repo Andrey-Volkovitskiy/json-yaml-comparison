@@ -1,11 +1,11 @@
 from gendiff import diff
-from gendiff.output.serializing import to_json_style
+from gendiff.formatters.serializing import to_json_style
 
 FULLINDENT = ' ' * 4
 HALFINDENT = ' ' * 2
 
 
-def get_output(difference, depth=0):
+def format(difference, depth=0):
     '''Outputs a difference tree in stylish text format
 
     Agruments:
@@ -19,12 +19,12 @@ def get_output(difference, depth=0):
     if len(difference) > 0:
         output += '\n'
     for node in difference:
-        output += add_line(node, depth) + '\n'
+        output += output_node(node, depth) + '\n'
     output += FULLINDENT * depth + '}'
     return output
 
 
-def add_line(node, depth):
+def output_node(node, depth):
     '''Creates output for certain node in difference tree
 
     Agruments:
@@ -39,7 +39,7 @@ def add_line(node, depth):
 
     if node_type == diff.BOTH_HAVE_CHILDREN:
         return (f"{FULLINDENT * (depth + 1)}{node['old_name']}: "
-                f"{get_output(node['children'], depth + 1)}")
+                f"{format(node['children'], depth + 1)}")
 
     if node_type == diff.UNCHANGED:
         return (f"{FULLINDENT * (depth + 1)}{node['old_name']}: "
@@ -48,15 +48,15 @@ def add_line(node, depth):
     result = []
     if node_type == diff.REMOVED or node_type == diff.UPDATED:
         result.append(f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
-                      f"{add_value(node['old_value'], depth)}")
+                      f"{output_value(node['old_value'], depth)}")
 
     if node_type == diff.ADDED or node_type == diff.UPDATED:
         result.append(f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
-                      f"{add_value(node['new_value'], depth)}")
+                      f"{output_value(node['new_value'], depth)}")
     return '\n'.join(result)
 
 
-def add_value(value, depth):
+def output_value(value, depth):
     '''Creates output for value
 
     Agruments:

@@ -1,8 +1,8 @@
 from gendiff import diff
-from gendiff.output.serializing import to_json_style
+from gendiff.formatters.serializing import to_json_style
 
 
-def get_output(difference, ancestors=None):
+def format(difference, ancestors=None):
     '''Outputs a difference tree in plain text format
 
     Agruments:
@@ -23,7 +23,7 @@ def get_output(difference, ancestors=None):
         new_str_value = val_to_str(node["new_value"])
 
         if node_type == diff.BOTH_HAVE_CHILDREN:
-            output.append(get_output(node["children"], current_path))
+            output.append(format(node["children"], current_path))
 
         elif node_type == diff.REMOVED:
             output.append(f"Property '{current_path}' was removed")
