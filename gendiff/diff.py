@@ -58,6 +58,7 @@ BOTH_HAVE_CHILDREN = "both_have_children"
 
 def get_node_type(d):
     '''Gets type of the node'''
+
     if d["old_name"] is None and d["old_value"] is None and \
             d["new_value"] is not None and d["new_name"] is not None:
         return ADDED
