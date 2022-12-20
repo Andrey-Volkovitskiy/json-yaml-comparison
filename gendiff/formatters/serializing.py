@@ -1,7 +1,4 @@
-import json
-
-
-def to_json_style(value):
+def value_to_json(value):
     '''Prepares internal Python data for output according to JSON value naming
 
     Agruments:
@@ -14,7 +11,10 @@ def to_json_style(value):
     True, False -> true, false
     str -> str (remains unchanged)
     '''
-    if value is None or type(value) is bool:
-        return json.dumps(value)
+    if value is None:
+        result = 'null'
+    elif type(value) is bool:
+        result = 'true' if value else 'false'
     else:
-        return value
+        result = str(value)
+    return result

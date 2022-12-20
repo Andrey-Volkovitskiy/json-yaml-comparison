@@ -1,5 +1,5 @@
 from gendiff import diff
-from gendiff.formatters.serializing import to_json_style
+from gendiff.formatters.serializing import value_to_json
 
 
 def format(difference, ancestors=None):
@@ -51,6 +51,6 @@ def val_to_str(value):
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, str):
-        return f"'{to_json_style(value)}'"
+        return f"'{value_to_json(value)}'"
     else:
-        return to_json_style(value)
+        return value_to_json(value)

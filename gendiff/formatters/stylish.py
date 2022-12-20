@@ -1,5 +1,5 @@
 from gendiff import diff
-from gendiff.formatters.serializing import to_json_style
+from gendiff.formatters.serializing import value_to_json
 
 FULLINDENT = ' ' * 4
 HALFINDENT = ' ' * 2
@@ -19,12 +19,12 @@ def format(difference, depth=0):
     if len(difference) > 0:
         output += '\n'
     for node in difference:
-        output += output_node(node, depth) + '\n'
+        output += node_to_str(node, depth) + '\n'
     output += FULLINDENT * depth + '}'
     return output
 
 
-def output_node(node, depth):
+def node_to_str(node, depth):
     '''Creates output for certain node in difference tree
 
     Agruments:
@@ -43,20 +43,20 @@ def output_node(node, depth):
 
     if node_type == diff.UNCHANGED:
         return (f"{FULLINDENT * (depth + 1)}{node['old_name']}: "
-                f"{to_json_style(node['old_value'])}")
+                f"{value_to_json(node['old_value'])}")
 
     result = []
     if node_type == diff.REMOVED or node_type == diff.UPDATED:
         result.append(f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
-                      f"{output_value(node['old_value'], depth)}")
+                      f"{value_to_str(node['old_value'], depth)}")
 
     if node_type == diff.ADDED or node_type == diff.UPDATED:
         result.append(f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
-                      f"{output_value(node['new_value'], depth)}")
+                      f"{value_to_str(node['new_value'], depth)}")
     return '\n'.join(result)
 
 
-def output_value(value, depth):
+def value_to_str(value, depth):
     '''Creates output for value
 
     Agruments:
@@ -67,11 +67,11 @@ def output_value(value, depth):
         ready to print string(s)
     '''
     if not isinstance(value, dict):
-        return to_json_style(value)
-    return output_complex_value(value, depth + 1)
+        return value_to_json(value)
+    return dict_to_str(value, depth + 1)
 
 
-def output_complex_value(dictionary, depth):
+def dict_to_str(dictionary, depth):
     '''Creates output for comlex value (for subtree)
 
     Agruments:
@@ -88,9 +88,9 @@ def output_complex_value(dictionary, depth):
         value = dictionary[key]
         if not isinstance(value, dict):
             output += (f'{FULLINDENT * (depth + 1)}{key}: '
-                       f'{to_json_style(value)}' + '\n')
+                       f'{value_to_json(value)}' + '\n')
         else:
             output += (f'{FULLINDENT * (depth + 1)}{key}: '
-                       f'{output_complex_value(value, depth + 1)}' + '\n')
+                       f'{dict_to_str(value, depth + 1)}' + '\n')
     output += FULLINDENT * depth + '}'
     return output
