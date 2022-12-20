@@ -1,55 +1,112 @@
 from gendiff import diff
-import pytest
 
 
-def test_positional_args():
-    d = diff.make('a', 'a', 1, 2, None)
+def test_flat_with_updated():
+    data_before = {'a': 1}
+    data_after = {'a': 2}
+    difference = diff.generate(data_before, data_after)
+    d = difference[0]
     assert d['old_name'] == 'a'
     assert d['new_name'] == 'a'
     assert d['old_value'] == 1
     assert d['new_value'] == 2
     assert d['children'] is None
+    assert diff.get_node_type(d) == diff.UPDATED
 
 
-def test_keyword_args():
-    d = diff.make(new_name='b', new_value=2)
+def test_flat_with_added():
+    data_before = {}
+    data_after = {'a': 2}
+    difference = diff.generate(data_before, data_after)
+    d = difference[0]
     assert d['old_name'] is None
-    assert d['new_name'] == 'b'
+    assert d['new_name'] == 'a'
     assert d['old_value'] is None
     assert d['new_value'] == 2
     assert d['children'] is None
+    assert diff.get_node_type(d) == diff.ADDED
 
 
-def test_nested():
-    d1 = diff.make('a', 'a', 1, 2, None)
-    d2 = diff.make('b', 'b', None, None, [d1])
-    d3 = diff.make('c', 'c', None, None, [d1, d2])
-    child1, child2 = d3['children']
-    assert child1['old_name'] == 'a'
-    assert child2['new_name'] == 'b'
-    assert child1['old_value'] == 1
-    assert child2['new_value'] is None
-    assert child1['children'] is None
-    assert child2['children'] == [d1]
+def test_flat_with_removed():
+    data_before = {'a': 1}
+    data_after = {}
+    difference = diff.generate(data_before, data_after)
+    d = difference[0]
+    assert d['old_name'] == 'a'
+    assert d['new_name'] is None
+    assert d['old_value'] == 1
+    assert d['new_value'] is None
+    assert d['children'] is None
+    assert diff.get_node_type(d) == diff.REMOVED
 
 
-def test_invariants():
-    with pytest.raises(ValueError) as err:
-        diff.make(None, None, 1, 2, None)  # No key
-    assert str(err.value) == "New_name and old_name are both None"
+def test_flat_with_unchanged():
+    data_before = {'a': 1}
+    data_after = {'a': 1}
+    difference = diff.generate(data_before, data_after)
+    d = difference[0]
+    assert d['old_name'] == 'a'
+    assert d['new_name'] == 'a'
+    assert d['old_value'] == 1
+    assert d['new_value'] == 1
+    assert d['children'] is None
+    assert diff.get_node_type(d) == diff.UNCHANGED
 
-    with pytest.raises(ValueError) as err:
-        diff.make('a', 'b', 1, 1, None)  # Key changed
-    assert str(err.value) == "New_name and old_name aren`t equal"
 
-    with pytest.raises(ValueError) as err:
-        diff.make('a', 'a', 1, 2, ['b', 'c'])  # Value AND cildren exist
-    assert str(err.value) == "Simultaneously value AND cildren exist"
+def test_nested_with_both_have_children():
+    data_before = {
+        'a': {
+            'b': 2,
+            'c': 3
+        }
+    }
+    data_after = {
+        'a': {
+            'd': 4
+        }
+    }
+    difference = diff.generate(data_before, data_after)
+    d = difference[0]
+    assert d['old_name'] == 'a'
+    assert d['new_name'] == 'a'
+    assert d['old_value'] is None
+    assert d['new_value'] is None
+    assert diff.get_node_type(d) == diff.BOTH_HAVE_CHILDREN
 
-    with pytest.raises(ValueError) as err:
-        diff.make('a', 'a', 1, None, ['b', 'c'])  # Value AND cildren exist
-    assert str(err.value) == "Simultaneously value AND cildren exist"
+    child0, child1, child2 = d['children']
+    assert child0['old_name'] == 'b'
+    assert child0['new_name'] is None
+    assert child0['old_value'] == 2
+    assert child0['new_value'] is None
+    assert diff.get_node_type(child0) == diff.REMOVED
 
-    with pytest.raises(ValueError) as err:
-        diff.make('a', 'a', None, 2, ['b', 'c'])  # Value AND cildren exist
-    assert str(err.value) == "Simultaneously value AND cildren exist"
+    assert child1['old_name'] == 'c'
+    assert child1['new_name'] is None
+    assert child1['old_value'] == 3
+    assert child1['new_value'] is None
+    assert diff.get_node_type(child1) == diff.REMOVED
+
+    assert child2['old_name'] is None
+    assert child2['new_name'] == 'd'
+    assert child2['old_value'] is None
+    assert child2['new_value'] == 4
+    assert diff.get_node_type(child2) == diff.ADDED
+
+
+def test_nested_with_only_one_has_child():
+    data_before = {
+        'a': 1
+    }
+    data_after = {
+        'a': {
+            'b': 2
+        }
+    }
+    difference = diff.generate(data_before, data_after)
+    d = difference[0]
+    assert d['old_name'] == 'a'
+    assert d['new_name'] == 'a'
+    assert d['old_value'] == 1
+    assert d['new_value'] == {'b': 2}
+    assert d['children'] is None
+    assert diff.get_node_type(d) == diff.UPDATED

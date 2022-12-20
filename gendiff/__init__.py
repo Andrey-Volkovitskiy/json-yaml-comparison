@@ -1,5 +1,5 @@
 from gendiff import parser
-from gendiff import generator
+from gendiff import diff
 from gendiff import output
 
 
@@ -16,5 +16,5 @@ def generate_diff(file_path1, file_path2, format_name='stylish'):
     '''
     data1 = parser.parse_file(file_path1)
     data2 = parser.parse_file(file_path2)
-    difference = generator.generate_diff(data1, data2)
+    difference = diff.generate(data1, data2)
     return output.output_diff(difference, format_name)
