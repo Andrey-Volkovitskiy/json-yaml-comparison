@@ -50,8 +50,8 @@ def get_all_keys(dict1, dict2):
 
 # Possible types of diff_node:
 ADDED = "added"
-UNCHANGED = "unchanged"
 REMOVED = "removed"
+UNCHANGED = "unchanged"
 UPDATED = "updated"
 BOTH_HAVE_CHILDREN = "both_have_children"
 
@@ -59,23 +59,28 @@ BOTH_HAVE_CHILDREN = "both_have_children"
 def get_node_type(d):
     '''Gets type of the node'''
 
-    if d["old_name"] is None and d["old_value"] is None and \
-            d["new_value"] is not None and d["new_name"] is not None:
-        return ADDED
-
-    elif d["old_name"] == d["new_name"] and \
-            d["old_value"] == d["new_value"] is not None:
-        return UNCHANGED
-
-    elif d["old_value"] is not None and d["old_name"] is not None and \
-            d["new_name"] is None and d["new_value"] is None:
-        return REMOVED
-
-    elif d["old_name"] == d["new_name"] and d["old_value"] != d["new_value"]:
-        return UPDATED
+    if d['old_name'] != d['new_name'] and \
+            d['old_name'] is not None and \
+            d['new_name'] is not None:
+        raise ValueError(f"old_name '{d['old_name']} and new_name {d['new_name']}"
+                         f" can't be unequal")
 
     elif d["children"]:
-        return BOTH_HAVE_CHILDREN
+        node_type = BOTH_HAVE_CHILDREN
+
+    elif d["old_name"] is None and d["new_name"] is not None:
+        node_type = ADDED
+
+    elif d["old_name"] is not None and d["new_name"] is None:
+        node_type = REMOVED
+
+    elif d["old_value"] == d["new_value"]:
+        node_type = UNCHANGED
+
+    elif d["old_value"] != d["new_value"]:
+        node_type = UPDATED
 
     else:
         raise ValueError(f"Unable to determine type of {d}")
+
+    return node_type

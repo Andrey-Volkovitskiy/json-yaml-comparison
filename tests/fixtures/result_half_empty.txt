@@ -1,5 +1,6 @@
 {
   + host: hexlet.io
+  + nonner: null
   + timeout: 20
   + verbose: true
 }
