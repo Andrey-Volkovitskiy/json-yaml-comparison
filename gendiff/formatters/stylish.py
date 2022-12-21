@@ -36,24 +36,36 @@ def node_to_str(node, depth):
     '''
 
     node_type = diff.get_node_type(node)
-
-    if node_type == diff.BOTH_HAVE_CHILDREN:
-        return (f"{FULLINDENT * (depth + 1)}{node['old_name']}: "
-                f"{format(node['children'], depth + 1)}")
-
-    if node_type == diff.UNCHANGED:
-        return (f"{FULLINDENT * (depth + 1)}{node['old_name']}: "
-                f"{value_to_json(node['old_value'])}")
-
     result = []
-    if node_type == diff.REMOVED or node_type == diff.UPDATED:
-        result.append(f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
+
+    match node_type:
+        case diff.BOTH_HAVE_CHILDREN:
+            result = (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
+                      f"{format(node['children'], depth + 1)}")
+
+        case diff.UNCHANGED:
+            result =  (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
+                       f"{value_to_json(node['old_value'])}")
+
+        case diff.REMOVED:
+            result = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
                       f"{value_to_str(node['old_value'], depth)}")
 
-    if node_type == diff.ADDED or node_type == diff.UPDATED:
-        result.append(f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
+        case diff.ADDED:
+            result = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
                       f"{value_to_str(node['new_value'], depth)}")
-    return '\n'.join(result)
+
+        case diff.UPDATED:
+            first_str = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
+                         f"{value_to_str(node['old_value'], depth)}")
+            second_str = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
+                       f"{value_to_str(node['new_value'], depth)}")
+            result = first_str + '\n' + second_str
+
+        case _:
+            raise ValueError(f"Node type '{node_type}'")
+
+    return result
 
 
 def value_to_str(value, depth):
