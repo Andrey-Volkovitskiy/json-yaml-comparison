@@ -19,7 +19,7 @@ gendiff:
 	poetry run gendiff
 
 test:
-	poetry run pytest -ra -s -vvv
+	poetry run python3 -m pytest -ra -s -vvv
 
 cov:
-	poetry run pytest --cov
+	poetry run python3 -m pytest --cov
