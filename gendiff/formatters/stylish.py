@@ -44,8 +44,8 @@ def node_to_str(node, depth):
                       f"{format(node['children'], depth + 1)}")
 
         case diff.UNCHANGED:
-            result =  (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
-                       f"{value_to_json(node['old_value'])}")
+            result = (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
+                      f"{value_to_json(node['old_value'])}")
 
         case diff.REMOVED:
             result = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
@@ -56,14 +56,14 @@ def node_to_str(node, depth):
                       f"{value_to_str(node['new_value'], depth)}")
 
         case diff.UPDATED:
-            first_str = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
-                         f"{value_to_str(node['old_value'], depth)}")
-            second_str = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
-                       f"{value_to_str(node['new_value'], depth)}")
-            result = first_str + '\n' + second_str
+            first_str = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}"
+                         f": {value_to_str(node['old_value'], depth)}")
+            scnd_str = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}"
+                        f": {value_to_str(node['new_value'], depth)}")
+            result = first_str + '\n' + scnd_str
 
         case _:
-            raise ValueError(f"Node type '{node_type}'")
+            raise ValueError(f"Node type '{node_type}' is unknown")
 
     return result
 

@@ -26,6 +26,7 @@ def generate(data1, data2):
             old_value = None
             new_value = None
             children = generate(val1, val2)
+
         else:                     # At least one node hasn't children
             old_value = val1
             new_value = val2
@@ -38,6 +39,7 @@ def generate(data1, data2):
             'new_value': new_value,
             'children': children
         }
+        check_invariant(diff_node)
         difference.append(diff_node)
     return difference
 
@@ -46,6 +48,16 @@ def get_all_keys(dict1, dict2):
     set1 = set(dict1.keys())
     set2 = set(dict2.keys())
     return set1 | set2
+
+
+def check_invariant(diff_node):
+    '''Checks diff_node invariants'''
+
+    if diff_node['old_name'] != diff_node['new_name'] and \
+            diff_node['old_name'] is not None and \
+            diff_node['new_name'] is not None:
+        raise ValueError(f"old_name '{diff_node['old_name']} and new_name "
+                         f"{diff_node['new_name']} can't be unequal")
 
 
 # Possible types of diff_node:
@@ -59,13 +71,7 @@ BOTH_HAVE_CHILDREN = "both_have_children"
 def get_node_type(d):
     '''Gets type of the node'''
 
-    if d['old_name'] != d['new_name'] and \
-            d['old_name'] is not None and \
-            d['new_name'] is not None:
-        raise ValueError(f"old_name '{d['old_name']} and new_name {d['new_name']}"
-                         f" can't be unequal")
-
-    elif d["children"]:
+    if d["children"]:
         node_type = BOTH_HAVE_CHILDREN
 
     elif d["old_name"] is None and d["new_name"] is not None:

@@ -35,7 +35,7 @@ def format(difference, ancestors=None):
             case diff.UPDATED:
                 result.append(f"Property '{current_path}' was updated. "
                               f"From {old_value_str} to {new_value_str}")
-            
+
             case diff.UNCHANGED:
                 pass
 
