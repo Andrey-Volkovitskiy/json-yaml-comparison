@@ -10,5 +10,5 @@ def format(difference):
     Returns:
         ready to print JSON string
     '''
-    prepared_dif = difference if difference else None
+    prepared_dif = difference or None
     return json.dumps(prepared_dif, sort_keys=False, indent=4)
