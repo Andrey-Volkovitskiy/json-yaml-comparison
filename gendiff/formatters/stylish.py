@@ -38,32 +38,31 @@ def node_to_str(node, depth):
     node_type = diff.get_node_type(node)
     result = []
 
-    match node_type:
-        case diff.BOTH_HAVE_CHILDREN:
-            result = (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
-                      f"{format(node['children'], depth + 1)}")
+    if node_type == diff.BOTH_HAVE_CHILDREN:
+        result = (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
+                  f"{format(node['children'], depth + 1)}")
 
-        case diff.UNCHANGED:
-            result = (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
-                      f"{value_to_json(node['old_value'])}")
+    elif node_type == diff.UNCHANGED:
+        result = (f"{FULLINDENT * depth}{FULLINDENT}{node['old_name']}: "
+                  f"{value_to_json(node['old_value'])}")
 
-        case diff.REMOVED:
-            result = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
-                      f"{value_to_str(node['old_value'], depth)}")
+    elif node_type == diff.REMOVED:
+        result = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}: "
+                  f"{value_to_str(node['old_value'], depth)}")
 
-        case diff.ADDED:
-            result = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
-                      f"{value_to_str(node['new_value'], depth)}")
+    elif node_type == diff.ADDED:
+        result = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}: "
+                  f"{value_to_str(node['new_value'], depth)}")
 
-        case diff.UPDATED:
-            first_str = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}"
-                         f": {value_to_str(node['old_value'], depth)}")
-            scnd_str = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}"
-                        f": {value_to_str(node['new_value'], depth)}")
-            result = first_str + '\n' + scnd_str
+    elif node_type == diff.UPDATED:
+        first_str = (f"{FULLINDENT * depth}{HALFINDENT}- {node['old_name']}"
+                     f": {value_to_str(node['old_value'], depth)}")
+        scnd_str = (f"{FULLINDENT * depth}{HALFINDENT}+ {node['new_name']}"
+                    f": {value_to_str(node['new_value'], depth)}")
+        result = first_str + '\n' + scnd_str
 
-        case _:
-            raise ValueError(f"Node type '{node_type}' is unknown")
+    else:
+        raise ValueError(f"Node type '{node_type}' is unknown")
 
     return result
 
