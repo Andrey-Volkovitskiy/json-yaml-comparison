@@ -35,6 +35,9 @@ def format(difference, ancestors=None):
             result.append(f"Property '{current_path}' was updated. "
                           f"From {old_value_str} to {new_value_str}")
 
+        elif node_type == diff.UNCHANGED:
+            pass
+
         else:
             raise ValueError(f"Node type '{node_type}' is unknown")
 
