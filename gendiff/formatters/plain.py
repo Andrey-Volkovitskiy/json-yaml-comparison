@@ -23,10 +23,10 @@ def format(difference, ancestors=None):
 
         if node_type == diff.BOTH_HAVE_CHILDREN:
             result.append(format(node["children"], current_path))
-        
+
         elif node_type == diff.REMOVED:
             result.append(f"Property '{current_path}' was removed")
-        
+
         elif node_type == diff.ADDED:
             result.append(f"Property '{current_path}' was added "
                           f"with value: {new_value_str}")
@@ -37,7 +37,7 @@ def format(difference, ancestors=None):
 
         elif node_type == diff.UNCHANGED:
             pass
-        
+
         else:
             raise ValueError(f"Node type '{node_type}' is unknown")
 

@@ -22,12 +22,14 @@ def generate(data1, data2):
         val1 = data1.get(key)
         val2 = data2.get(key)
 
-        if type(val1) == type(val2) == dict:  # Both nodes HAVE_CHILDREN
+        both_nodes_have_children = bool(
+            type(val1) == type(val2) == dict)
+        if both_nodes_have_children:
             old_value = None
             new_value = None
             children = generate(val1, val2)
 
-        else:                     # At least one node hasn't children
+        else:
             old_value = val1
             new_value = val2
             children = None
