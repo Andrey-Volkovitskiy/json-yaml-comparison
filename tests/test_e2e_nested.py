@@ -5,6 +5,7 @@ PATH = 'tests/fixtures/'
 FILE3 = 'tests/fixtures/file3'
 FILE4 = 'tests/fixtures/file4'
 
+
 @pytest.mark.parametrize("file1, file2, expected", [
     (FILE3 + '.json', FILE4 + '.json', 'result_nested_my.txt'),
     (FILE3 + '.yaml', FILE4 + '.yaml', 'result_nested_my.txt'),

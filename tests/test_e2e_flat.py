@@ -12,7 +12,6 @@ FILE2 = 'tests/fixtures/file2'
     (FILE0 + '.json', FILE0 + '.json', '{}'),
     (FILE0 + '.yml', FILE0 + '.yaml', '{}'),])
 def test_with_empty(file1, file2, expected):
-    file_a = 'tests/fixtures/f]ile0'
     assert generate_diff(file1, file2) == expected
 
 
