@@ -9,7 +9,7 @@ FILE4 = 'tests/fixtures/file4'
 @pytest.mark.parametrize("file1, file2, expected", [
     (FILE3 + '.json', FILE4 + '.json', 'result_nested_my.txt'),
     (FILE3 + '.yaml', FILE4 + '.yaml', 'result_nested_my.txt'),
-    (FILE3 + '.json', FILE4 + '.yaml', 'result_nested_my.txt'),])
+    (FILE3 + '.json', FILE4 + '.yaml', 'result_nested_my.txt')])
 def test_nested_with_my_data(file1, file2, expected):
     with open(PATH + expected, 'r') as expected_file:
         expected_result = expected_file.read()
