@@ -3,8 +3,8 @@ import json
 import yaml
 
 
-def parse_file(path_to_file):
-    '''Parse JSON or YAML input file
+def get_file_data(path_to_file):
+    '''Gets parsed data stucture extracted from the file
 
     Agruments:
         path_to_file - path to file to read and parse
@@ -13,24 +13,32 @@ def parse_file(path_to_file):
         extracted data structure
     '''
     if path_to_file.endswith('.json'):
-        with open(path_to_file) as the_file:
-            data = parse_json(the_file)
+        content_type = 'json'
     elif path_to_file.endswith(('.yaml', '.yml')):
-        with open(path_to_file) as the_file:
-            data = parse_yaml(the_file)
+        content_type = 'yaml'
     else:
         raise NameError(f'File "{path_to_file}" have to be .json or .yaml')
+
+    with open(path_to_file) as the_file:
+        data = parse_content(the_file, content_type)
     return data
 
 
-def parse_json(the_file):
-    '''Parse JSON content'''
-    return json.load(the_file)
+def parse_content(file_content, content_type):
+    '''Parse JSON or YAML file content
 
+    Agruments:
+        file_content - the content extracted from a configuration file
+        content_type - JSON or YAML (depends on the file extension)
 
-def parse_yaml(the_file):
-    '''Parse YAML content'''
-    data = yaml.safe_load(the_file)
-    if data is None:
-        data = {}
-    return data
+    Returns:
+        extracted data structure
+    '''
+    if content_type == 'json':
+        return json.load(file_content)
+    elif content_type == 'yaml':
+        data = yaml.safe_load(file_content)
+        return data or {}
+    else:
+        raise NameError(f'File extention "{content_type}" '
+                        f'have to be .json or .yaml')

@@ -14,7 +14,7 @@ def generate_diff(file_path1, file_path2, format_name='stylish'):
     Returns:
         the difference between file1 and file2 using certain format
     '''
-    data1 = parser.parse_file(file_path1)
-    data2 = parser.parse_file(file_path2)
+    data1 = parser.get_file_data(file_path1)
+    data2 = parser.get_file_data(file_path2)
     difference = diff.generate(data1, data2)
     return formatters.get_output(difference, format_name)
