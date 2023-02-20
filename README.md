@@ -19,7 +19,7 @@ This project was built using these tools:
 | [Pytest](https://docs.pytest.org/)               | Python testing framework |
 | [Flake8](https://flake8.pycqa.org/)               | Linter to check the style of the code |
 | [Code Climate](https://codeclimate.com/)               | Checks code quality standards on every commit |
-| [Github Actions](https://github.com/features/actions)               | Continuous Integration (CI) |
+| [GitHub Actions](https://github.com/features/actions)               | Continuous Integration (CI) |
 
 
 ---
@@ -63,7 +63,7 @@ You can install the application using the following commands:
 Show how the application interacts with a user:
 
 1. Flat JSON comparison
-    - Package works with comand line: https://asciinema.org/a/gFNosekyuViKk5rnLD43ta4dk
+    - Package works with command line: https://asciinema.org/a/gFNosekyuViKk5rnLD43ta4dk
     - Package works as library: https://asciinema.org/a/sj3WHIVbtESrCKfRGz8h3X9OT
 2. Flat YAML comparison
     - https://asciinema.org/a/iUt8pHRlNAuDuSLY6y9pxYd8Z
