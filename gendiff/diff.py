@@ -22,8 +22,8 @@ def generate(data1, data2):
         val1 = data1.get(key)
         val2 = data2.get(key)
 
-        both_nodes_have_children = bool(
-            type(val1) == type(val2) == dict)
+        both_nodes_have_children = (
+            isinstance(val1, dict) and isinstance(val2, dict) )
         if both_nodes_have_children:
             old_value = None
             new_value = None
