@@ -23,7 +23,7 @@ def generate(data1, data2):
         val2 = data2.get(key)
 
         both_nodes_have_children = (
-            isinstance(val1, dict) and isinstance(val2, dict) )
+            isinstance(val1, dict) and isinstance(val2, dict))
         if both_nodes_have_children:
             old_value = None
             new_value = None
