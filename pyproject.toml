@@ -1,10 +1,18 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
+description = "App compares two files (JSON or YAML) and shows the difference between them."
 authors = ["Andrey <volk000@gmail.com>"]
 readme = "README.md"
 packages = [{ include = "gendiff" }]
+repository = "https://github.com/Andrey-Volkovitskiy/python-project-50"
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Education",
+    "Operating System :: Unix",
+    "Topic :: Utilities"
+]
 
 [tool.poetry.scripts]
 gendiff = "gendiff.scripts.start:main"
