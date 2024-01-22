@@ -1,12 +1,16 @@
 # Difference Calculator
 
-**This is the 2nd training project of "Python Developer" course.**
+**This is the 2nd training project of "Python Developer" specialization.**
 
-The program compares two files (JSON or YAML) and shows the difference between them.
+*The app compares two files (JSON or YAML) and shows the difference between them.*
+
+* Implemented data abstraction and tree data structures processing
+* Practiced TDD through Pytest and parameterized fixtures
+* Implemented 3 different output options
 
 ---
 ### Tests and code quality assessment:
-[![Actions Status](https://github.com/Andrey-Volkovitskiy/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions)    [![Lint](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/flake8_linter.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/flake8_linter.yml)    [![Pytest](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/pytest.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/pytest.yml)
+[![Lint](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/flake8_linter.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/flake8_linter.yml)    [![Pytest](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/pytest.yml/badge.svg)](https://github.com/Andrey-Volkovitskiy/python-project-50/actions/workflows/pytest.yml)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/40dae7224b36f362b81f/maintainability)](https://codeclimate.com/github/Andrey-Volkovitskiy/python-project-50/maintainability)    [![Test Coverage](https://api.codeclimate.com/v1/badges/40dae7224b36f362b81f/test_coverage)](https://codeclimate.com/github/Andrey-Volkovitskiy/python-project-50/test_coverage)
 
